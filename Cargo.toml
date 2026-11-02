@@ -15,58 +15,31 @@ name = "pslinkb-windivert"
 path = "src/bin/windivert.rs"
 required-features = ["windivert"]
 
-# ==================== 核心依赖 ====================
 [dependencies]
 blivemsg = "0.2.4"
-
-# 异步运行时
 tokio = { version = "1.52.3", features = ["rt-multi-thread", "net", "sync", "macros", "io-util", "time", "process"] }
 futures-util = "0.3.32"
-
-# 序列化
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.150"
 rtmp-rs = "0.5.0"
-
-# Trait 支持
 async-trait = "0.1.89"
-
-# 工具库
 thiserror = "2.0.18"
 owo-colors = { version = "4.3.0", features = ["supports-colors"] }
-
-reqwest = { version = "0.13.4", default-features = false, features = [
-    "rustls-no-provider",
-    "json",
-    "cookies",
-] }
-
+reqwest = { version = "0.13.4", default-features = false, features = ["rustls-no-provider", "json", "cookies"] }
 md5 = "0.8.0"
-
-# TLS crypto provider
 rustls = { version = "0.23", default-features = false, features = ["ring"] }
-
-# libc for raw socket operations
 libc = "0.2"
+axum = { version = "0.8", default-features = false, features = ["http1", "json", "tokio"] }
 
-# ==================== 桌面模式 ====================
 clap = { version = "4.6.1", features = ["derive"], optional = true }
 toml = { version = "1.1.2", optional = true }
-
-# 网卡接口枚举
 if-addrs = { version = "0.15.0", optional = true }
-
-# 扫码登录
 qrcode = { version = "0.14.1", optional = true }
-
-# DNS 重定向
 hickory-proto = { version = "0.26.1", optional = true }
 
-# WinDivert 动态加载
 [target.'cfg(windows)'.dependencies]
 libloading = "0.8"
 
-# ==================== Release 优化 ====================
 [profile.release]
 opt-level = "z"
 lto = true
@@ -74,31 +47,17 @@ codegen-units = 1
 panic = "abort"
 strip = true
 
-# ==================== Features ====================
 [features]
 default = []
 cli = ["clap", "toml", "qrcode", "if-addrs"]
-
-# 弹幕通道模式 - 二选一, 互斥
 channel-mpsc = []
 channel-broadcast = []
-
 protobuf-support = ["blivemsg/protobuf-support"]
-
-# OpenWRT 平台
 openwrt = []
-
-# ffmpeg 模式 - 二选一, 互斥
 external-ffmpeg = []
 ffi-ffmpeg = []
-
-# DNS 重定向
 dns-redirect = ["hickory-proto"]
-
-# WinDivert 
 windivert = ["dns-redirect"]
-
-# 调试日志
 debug-log = []
 
 [build-dependencies]

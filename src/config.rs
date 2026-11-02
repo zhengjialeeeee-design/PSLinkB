@@ -43,6 +43,12 @@ pub struct LiveConfig {
 
     #[serde(default)]
     pub live_mode: crate::core::blive::LiveMode,
+
+    /// Optional manual Douyin RTMP endpoint and stream key.
+    #[serde(default)]
+    pub douyin_rtmp_url: Option<String>,
+    #[serde(default)]
+    pub douyin_stream_key: Option<String>,
 }
 
 /// 扫码登录成功后 init::ensure_cookie() 调用 Config::save_auth_cookies() 写回此段。
@@ -99,6 +105,8 @@ impl Default for LiveConfig {
             area_v2: String::new(),
             area_name: default_area_name(),
             live_mode: crate::core::blive::LiveMode::default(),
+            douyin_rtmp_url: None,
+            douyin_stream_key: None,
         }
     }
 }

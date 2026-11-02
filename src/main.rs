@@ -255,8 +255,9 @@ async fn run() -> Result<(), AppError> {
 
     // ── 本地只读 Dashboard（默认仅监听 localhost）──
     #[cfg(feature = "cli")]
+    let dashboard_config = config.clone();
     tokio::spawn(async move {
-        if let Err(e) = pslinkb::dashboard::serve(config.clone()).await {
+        if let Err(e) = pslinkb::dashboard::serve(dashboard_config).await {
             eprintln!("[Dashboard] Server stopped: {}", e);
         }
     });

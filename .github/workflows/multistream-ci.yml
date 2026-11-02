@@ -19,5 +19,7 @@ jobs:
           components: rustfmt
       - name: Check formatting
         run: cargo fmt --all -- --check
+      - name: Check CLI binaries and dashboard server
+        run: cargo check --features cli --bins
       - name: Run library tests
         run: cargo test --features cli --lib

@@ -1,0 +1,23 @@
+name: Multi-stream module checks
+
+on:
+  push:
+    branches:
+      - feature/multi-platform-stream
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  rust-check:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install stable Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+      - name: Run library tests
+        run: cargo test --features cli --lib

@@ -69,7 +69,7 @@ mod tests {
             RtmpTarget { platform: "bilibili".into(), url: "rtmp://bili/app/".into(), stream_key: "key1".into(), enabled: true },
             RtmpTarget { platform: "douyin".into(), url: "rtmp://douyin/live/".into(), stream_key: "key2".into(), enabled: false },
         ];
-        let tee = build_ee_url(&targets).unwrap();
+        let tee = build_tee_url(&targets).unwrap();
         assert!(tee.contains("bili"));
         assert!(!tee.contains("douyin"));
     }

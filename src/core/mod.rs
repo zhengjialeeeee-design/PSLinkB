@@ -8,3 +8,4 @@ pub mod effect;
 pub mod biliapi;
 pub mod blive;
 pub mod twitch;
+pub mod multistream;
